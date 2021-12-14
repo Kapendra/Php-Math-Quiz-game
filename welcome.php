@@ -69,7 +69,11 @@
                 <?php if(@$_GET['q']==1) 
                 {
                     $result = mysqli_query($con,"SELECT * FROM quiz ORDER BY date DESC") or die('Error');
+                    echo '<script>
+                    localStorage.removeItem("fullTime");
+                    </script>';
                     echo  '<div class="panel"><div class="table-responsive"><table class="table table-striped title1">
+    
                     <tr><td><center><b>S.N.</b></center></td><td><center><b>Topic</b></center></td><td><center><b>Total question</b></center></td><td><center><b>Marks</center></b></td><td><center><b>Action</b></center></td></tr>';
                     $c=1;
                     while($row = mysqli_fetch_array($result)) {
@@ -156,6 +160,9 @@
                     {
                         $eid=@$_GET['eid'];
                         $q=mysqli_query($con,"SELECT * FROM history WHERE eid='$eid' AND email='$email' " )or die('Error157');
+                        echo '<script>
+                        localStorage.removeItem("fullTime");
+                        </script>';
                         echo  '<div class="panel">
                         <center><h1 class="title" style="color:#660033">Result</h1><center><br /><table class="table table-striped title1" style="font-size:20px;font-weight:1000;">';
 
@@ -185,6 +192,9 @@ where the users are compared from the database and winner is on the top with hig
                     if(@$_GET['q']== 2) 
                     {
                         $q=mysqli_query($con,"SELECT * FROM history WHERE email='$email' ORDER BY date DESC " )or die('Error197');
+                        echo '<script>
+                        localStorage.removeItem("fullTime");
+                        </script>';
                         echo  '<div class="panel title">
                         <table class="table table-striped title1" >
                         <tr style="color:black;"><td><center><b>S.N.</b></center></td><td><center><b>Quiz</b></center></td><td><center><b>Question Solved</b></center></td><td><center><b>Right</b></center></td><td><center><b>Wrong<b></center></td><td><center><b>Score</b></center></td>';
@@ -209,6 +219,9 @@ where the users are compared from the database and winner is on the top with hig
                     if(@$_GET['q']== 3) 
                     {
                         $q=mysqli_query($con,"SELECT * FROM rank ORDER BY score DESC " )or die('Error223');
+                        echo '<script>
+                        localStorage.removeItem("fullTime");
+                        </script>';
                         echo  '<div class="panel title"><div class="table-responsive">
                         <table class="table table-striped title1" >
                         <tr style="color:red"><td><center><b>Rank</b></center></td><td><center><b>Name</b></center></td><td><center><b>Email</b></center></td><td><center><b>Score</b></center></td></tr>';
