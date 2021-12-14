@@ -9,6 +9,7 @@
     {
         $name = $_SESSION['name'];
         $email = $_SESSION['email'];
+        $_SESSION['fullTime'] = 600;
         include_once 'database.php';
     }
 ?>
@@ -105,7 +106,33 @@
                         $sn=@$_GET['n'];
                         $total=@$_GET['t'];
                         $q=mysqli_query($con,"SELECT * FROM questions WHERE eid='$eid' AND sn='$sn' " );
-                        echo '<div class="panel" style="margin:5%">';
+                        echo '<script>
+                    function startTimer(){
+                        if(!localStorage.getItem("fullTime")){
+                            localStorage.setItem("fullTime", 600);
+                        }
+                        var timer = setInterval(function(){
+                            var fullTime =localStorage.getItem("fullTime");
+                            var minutes = Math.floor(fullTime / 60);
+                            var seconds = fullTime % 60;
+                            fullTime--;
+                            localStorage.setItem("fullTime", fullTime--);
+                            document.getElementById("timer").innerHTML = "Remaining Time : "+minutes + "m " + seconds + "s ";
+
+
+                            if(fullTime < -1){
+                                clearInterval(timer);
+                                localStorage.removeItem("fullTime");
+                                window.location.href="welcome.php?q=result&eid='.$eid.'";
+                            }
+                        },1000);
+                    }
+
+                    startTimer();
+                        </script>';
+                        echo ' <h1 style="text-align:center; color:white" id="timer"></h1>';
+                        echo '
+                        <div class="panel" style="margin:5%">';
                         while($row=mysqli_fetch_array($q) )
                         {
                             $qns=$row['qns'];
@@ -202,5 +229,8 @@ where the users are compared from the database and winner is on the top with hig
                         echo '</table></div></div>';
                     }
                 ?>
-</body>
+
+                <script>
+                </script>
+                </body>
 </html>
